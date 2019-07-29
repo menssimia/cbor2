@@ -268,6 +268,14 @@ def encode_undefined(encoder, value):
     encoder.write(b'\xf7')
 
 
+def encode_indefinite(encoder, major_tag):
+    encoder.write(struct.pack('>B', major_tag | 0x1F))
+
+
+def encode_break(encoder):
+    encoder.write(b'\xff')
+
+
 default_encoders = OrderedDict([
     (bytes, encode_bytestring),
     (bytearray, encode_bytearray),
